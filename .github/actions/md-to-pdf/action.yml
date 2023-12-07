@@ -6,10 +6,6 @@ inputs:
   md_file:
     description: 'Input Markdown file'
     required: true
-  pdf_file:
-    description: 'Output PDF file'
-    required: true
-    default: 'output.pdf'
 
 runs:
   using: 'docker'
