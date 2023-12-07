@@ -13,4 +13,4 @@ inputs:
 
 runs:
   using: 'docker'
-  image: '.github/actions/md-to-pdf'
+  image: 'Dockerfile'
