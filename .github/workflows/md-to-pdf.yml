@@ -18,7 +18,7 @@ jobs:
         with:
           md_file: 'input.md'
           pdf_file: 'output.pdf'
-        working-directory: /github/workspace
+          working-directory: /github/workspace
 
       - name: Archive PDF
         uses: actions/upload-artifact@v2
