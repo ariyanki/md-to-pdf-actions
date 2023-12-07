@@ -1,4 +1,4 @@
-FROM danteev/texlive
+FROM pandoc/core:latest
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh

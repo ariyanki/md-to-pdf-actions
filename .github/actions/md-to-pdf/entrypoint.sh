@@ -1,2 +1,2 @@
 #!/bin/sh
-pandoc "$INPUT_MD_FILE" -o "$INPUT_PDF_FILE"
+pandoc "$@" -o /github/workspace/output.pdf
