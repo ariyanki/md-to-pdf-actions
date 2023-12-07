@@ -1,0 +1,16 @@
+name: 'Markdown to PDF'
+
+description: 'Converts Markdown to PDF using Pandoc'
+
+inputs:
+  md_file:
+    description: 'Input Markdown file'
+    required: true
+  pdf_file:
+    description: 'Output PDF file'
+    required: true
+    default: 'output.pdf'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

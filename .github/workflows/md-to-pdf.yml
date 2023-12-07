@@ -1,0 +1,20 @@
+name: Convert MD to PDF
+
+on:
+  push:
+    paths:
+      - '*.md'
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Convert to PDF
+        uses: ./.github/actions/md-to-pdf
+        with:
+          md_file: 'input.md'
+          pdf_file: 'output.pdf'
