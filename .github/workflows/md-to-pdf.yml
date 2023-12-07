@@ -2,8 +2,8 @@ name: Convert MD to PDF
 
 on:
   push:
-    branches: 
-        - 'main'
+    branches:
+      - 'main'
 
 jobs:
   convert:
@@ -18,3 +18,10 @@ jobs:
         with:
           md_file: 'input.md'
           pdf_file: 'output.pdf'
+        working-directory: /github/workspace
+
+      - name: Archive PDF
+        uses: actions/upload-artifact@v2
+        with:
+          name: output-pdf
+          path: /github/workspace/output.pdf
