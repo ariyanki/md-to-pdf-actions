@@ -2,8 +2,8 @@ name: Convert MD to PDF
 
 on:
   push:
-    paths:
-      - '*.md'
+    branches: 
+        - 'main'
 
 jobs:
   convert:
