@@ -6,6 +6,9 @@ inputs:
   md_file:
     description: 'Input Markdown file'
     required: true
+  pdf_file:
+    description: 'Input PDF file'
+    required: true
 
 runs:
   using: 'docker'
