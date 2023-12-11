@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Convert to PDF
         uses: ./.github/actions/md-to-pdf
@@ -20,7 +20,7 @@ jobs:
           pdf_file: 'output.pdf'
 
       - name: Archive PDF
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: output-pdf
           path: output.pdf
