@@ -1,6 +1,6 @@
 #!/bin/bash
-set -e
 
-md_file=$INPUT_MD_FILE
-pdf_file="${md_file%.md}.pdf"
-pandoc "$md_file" -o "$pdf_file"
+INPUT_FOLDER=$1
+OUTPUT_FOLDER=$2
+
+find "$INPUT_FOLDER" -name '*.md' -exec pandoc -s {} -o "$OUTPUT_FOLDER/{}.pdf" \;

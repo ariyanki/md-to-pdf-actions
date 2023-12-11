@@ -13,13 +13,29 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Create folder for changed files
+        run: |
+          mkdir input_folder
+          mkdir output_folder
+
+      - name: Copy changed .md files to folder
+        run: |
+          IFS=$'\n'
+          for file in ${{ steps.changed_files.outputs.files }}; do
+            if [[ "$file" == *".md" ]]; then
+              cp --parents "$file" input_folder/
+            fi
+          done
+
       - name: Convert to PDF
         uses: ./.github/actions/md-to-pdf
         with:
-          md_file: 'input.md'
+          input_folder: 'input_folder'
+          output_folder: 'output_folder'
+
 
       - name: Archive PDF
         uses: actions/upload-artifact@v3
         with:
           name: output-pdf
-          path: input.pdf
+          path: output_folder

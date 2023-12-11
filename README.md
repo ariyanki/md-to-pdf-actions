@@ -1,4 +1,4 @@
-# cashflow-notice
+# md-to-pdf
 
 ## Installation
 

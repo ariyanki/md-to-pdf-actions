@@ -3,13 +3,13 @@ name: 'Markdown to PDF'
 description: 'Converts Markdown to PDF using Pandoc'
 
 inputs:
-  md_file:
-    description: 'Input Markdown file'
+  input-folder:
+    description: 'Folder containing Markdown files'
     required: true
-  pdf_file:
-    description: 'Output PDF file'
+
+  output-folder:
+    description: 'Folder to store the generated PDF files'
     required: true
-    default: 'output.pdf'
 
 runs:
   using: 'docker'

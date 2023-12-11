@@ -1,6 +1,5 @@
 FROM ubuntu:latest
 
-# Set the timezone noninteractively
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
@@ -8,7 +7,6 @@ RUN apt-get update && \
     ln -fs /usr/share/zoneinfo/Europe/London /etc/localtime && \
     dpkg-reconfigure --frontend noninteractive tzdata
 
-# Install dependencies
 RUN apt-get update && apt-get install -y \
     pandoc texlive-xetex
 
