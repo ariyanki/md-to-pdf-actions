@@ -17,6 +17,7 @@ jobs:
         uses: ./.github/actions/md-to-pdf
         with:
           md_file: 'input.md'
+          pdf_file: 'output.pdf'
 
       - name: Archive PDF
         uses: actions/upload-artifact@v2

@@ -7,8 +7,9 @@ inputs:
     description: 'Input Markdown file'
     required: true
   pdf_file:
-    description: 'Input PDF file'
+    description: 'Output PDF file'
     required: true
+    default: 'output.pdf'
 
 runs:
   using: 'docker'
