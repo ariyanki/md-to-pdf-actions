@@ -23,7 +23,7 @@ jobs:
           IFS=$'\n'
           for file in ${{ steps.changed_files.outputs.files }}; do
             if [[ "$file" == *".md" ]]; then
-              cp --parents "$file" input_folder/
+              cp --parents "$file" md_folder/
             fi
           done
 
