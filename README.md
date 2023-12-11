@@ -1,11 +1,5 @@
 # md-to-pdf
 
-asdfasdf
-
-asdf
-
-asdfasd
-
 ## Installation
 
 pre requisite:

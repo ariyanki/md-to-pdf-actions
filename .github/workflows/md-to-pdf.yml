@@ -12,18 +12,20 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Identify changed MD files
+        id: changed-md-files
+        run: CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$')
+
+      - name: Create folder for PDF files
+        run: mkdir pdf_folder
 
       - name: Install Pandoc & texlive-xetex
         run: |
           sudo apt-get update
           sudo apt-get install -y pandoc texlive-xetex
-
-      - name: Create folder for PDF files
-        run: mkdir pdf_folder
-
-      - name: Identify changed MD files
-        id: changed-md-files
-        run: CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$')
 
       - name: Convert MD to PDF
         run: |
