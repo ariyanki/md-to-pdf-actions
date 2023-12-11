@@ -17,7 +17,7 @@ jobs:
         id: list_changes
         run: |
           echo "Changed files:"
-          git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md' > changed_files.txt
+          $(find . -name "*.md") > changed_files.txt
           cat changed_files.txt
 
       - name: Create folder for changed files
