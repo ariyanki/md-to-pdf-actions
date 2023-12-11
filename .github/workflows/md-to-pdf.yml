@@ -20,7 +20,7 @@ jobs:
           pdf_file: 'output.pdf'
 
       - name: Archive PDF
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: output-pdf
           path: output.pdf
