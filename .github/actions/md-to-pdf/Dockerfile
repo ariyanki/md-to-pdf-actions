@@ -1,4 +1,4 @@
-FROM pandoc:latest
+FROM pandoc/core:latest
 
 RUN apt-get update && apt-get install -y \
     texlive-xetex
