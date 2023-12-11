@@ -6,40 +6,69 @@ on:
       - 'main'
 
 jobs:
-  convert:
+  convert-to-pdf:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: List changed files
-        id: list_changes
+      - name: Install Pandoc
         run: |
-          echo "Changed files:"
-          $(find . -name "*.md") > changed_files.txt
-          cat changed_files.txt
+          sudo apt-get update
+          sudo apt-get install -y pandoc texlive-xetex
 
-      - name: Create folder for changed files
+      - name: Identify changed MD files
+        id: changed-md-files
         run: |
-          mkdir md_folder
-          mkdir pdf_folder
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$')
+          echo "::set-output name=changed_md_files::$CHANGED_FILES"
+
+      - name: Convert MD to PDF
+        run: |
+          for file in ${{ steps.changed-md-files.outputs.changed_md_files }}; do
+            pandoc "$file" -s -o "${file%.md}.pdf"
+          done
+
+      - name: Display converted PDF files
+        run: |
+          ls *.pdf
+
+          
+#   convert:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout Repository
+#         uses: actions/checkout@v4
+
+#       - name: List changed files
+#         id: list_changes
+#         run: |
+#           echo "Changed files:"
+#           $(find . -name "*.md") > changed_files.txt
+#           cat changed_files.txt
+
+#       - name: Create folder for changed files
+#         run: |
+#           mkdir md_folder
+#           mkdir pdf_folder
     
-      - name: Copy changed files
-        run: |
-          while IFS= read -r file; do
-            cp "$file" md_folder/
-          done < changed_files.txt
+#       - name: Copy changed files
+#         run: |
+#           while IFS= read -r file; do
+#             cp "$file" md_folder/
+#           done < changed_files.txt
 
-      - name: Convert to PDF
-        uses: ./.github/actions/md-to-pdf
-        with:
-          md_folder: 'md_folder'
-          pdf_folder: 'pdf_folder'
+#       - name: Convert to PDF
+#         uses: ./.github/actions/md-to-pdf
+#         with:
+#           md_folder: 'md_folder'
+#           pdf_folder: 'pdf_folder'
 
 
-      - name: Archive PDF
-        uses: actions/upload-artifact@v3
-        with:
-          name: output-pdf
-          path: pdf_folder
+#       - name: Archive PDF
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: output-pdf
+#           path: pdf_folder
