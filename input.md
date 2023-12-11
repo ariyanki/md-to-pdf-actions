@@ -2,8 +2,6 @@
 
 ## Installation
 
-asdfasdf
-
 pre requisite:
 - Python 3
 - Python Virtual Environment

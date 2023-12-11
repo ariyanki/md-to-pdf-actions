@@ -18,28 +18,28 @@ jobs:
       - name: Identify changed MD files
         id: changed-md-files
         run: |
-          changed_file=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$')
-          echo "CHANGED_FILES=$changed_file" >> $GITHUB_ENV
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$')
+          echo "changed_md_files::$CHANGED_FILES" >>$GITHUB_OUTPUT
 
-      - name: Create folder for PDF files
-        run: mkdir pdf_folder
+      # - name: Create folder for PDF files
+      #   run: mkdir pdf_folder
 
-      - name: Install Pandoc & texlive-xetex
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y pandoc texlive-xetex
+      # - name: Install Pandoc & texlive-xetex
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install -y pandoc texlive-xetex
 
       - name: Convert MD to PDF
         run: |
-          for file in $CHANGED_FILES; do
-            pandoc "$file" -s -o "pdf_folder/${file%.md}.pdf"
+          for file in ${{ steps.changed-md-files.outputs.changed_md_files }}; do
+            echo file
           done
       
-      - name: Archive PDF
-        uses: actions/upload-artifact@v3
-        with:
-          name: output-pdf
-          path: pdf_folder
+      # - name: Archive PDF
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: output-pdf
+      #     path: pdf_folder
 
 
 #   convert:
