@@ -11,32 +11,31 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Install Pandoc
+      - name: Install Pandoc & texlive-xetex
         run: |
           sudo apt-get update
           sudo apt-get install -y pandoc texlive-xetex
 
-      - name: Create folder for changed files
-        run: |
-          mkdir pdf_folder
+      - name: Create folder for PDF files
+        run: mkdir pdf_folder
 
       - name: Identify changed MD files
         id: changed-md-files
-        run: |
-          CHANGED_FILES=$(find . -name "*.md")
-          echo "::set-output name=changed_md_files::$CHANGED_FILES"
+        run: CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$')
 
       - name: Convert MD to PDF
         run: |
           for file in ${{ steps.changed-md-files.outputs.changed_md_files }}; do
             pandoc "$file" -s -o "pdf_folder/${file%.md}.pdf"
           done
-
-      - name: Display converted PDF files
-        run: |
-          ls pdf_folder
+      
+      - name: Archive PDF
+        uses: actions/upload-artifact@v3
+        with:
+          name: output-pdf
+          path: pdf_folder
 
 
 #   convert:
@@ -64,10 +63,3 @@ jobs:
 #         with:
 #           md_folder: 'md_folder'
 #           pdf_folder: 'pdf_folder'
-
-
-      - name: Archive PDF
-        uses: actions/upload-artifact@v3
-        with:
-          name: output-pdf
-          path: pdf_folder
