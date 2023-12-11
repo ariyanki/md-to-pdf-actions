@@ -18,6 +18,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y pandoc texlive-xetex
 
+      - name: Create folder for changed files
+        run: |
+          mkdir pdf_folder
+
       - name: Identify changed MD files
         id: changed-md-files
         run: |
@@ -27,12 +31,12 @@ jobs:
       - name: Convert MD to PDF
         run: |
           for file in ${{ steps.changed-md-files.outputs.changed_md_files }}; do
-            pandoc "$file" -s -o "${file%.md}.pdf"
+            pandoc "$file" -s -o "pdf_folder/${file%.md}.pdf"
           done
 
       - name: Display converted PDF files
         run: |
-          ls *.pdf
+          ls pdf_folder
 
 
 #   convert:
@@ -48,11 +52,6 @@ jobs:
 #           echo "Changed files:"
 #           $(find . -name "*.md") > changed_files.txt
 #           cat changed_files.txt
-
-#       - name: Create folder for changed files
-#         run: |
-#           mkdir md_folder
-#           mkdir pdf_folder
     
 #       - name: Copy changed files
 #         run: |
@@ -67,8 +66,8 @@ jobs:
 #           pdf_folder: 'pdf_folder'
 
 
-#       - name: Archive PDF
-#         uses: actions/upload-artifact@v3
-#         with:
-#           name: output-pdf
-#           path: pdf_folder
+      - name: Archive PDF
+        uses: actions/upload-artifact@v3
+        with:
+          name: output-pdf
+          path: pdf_folder
