@@ -13,19 +13,23 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: List changed files
+        id: list_changes
+        run: |
+          echo "Changed files:"
+          git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md' > changed_files.txt
+          cat changed_files.txt
+
       - name: Create folder for changed files
         run: |
           mkdir md_folder
           mkdir pdf_folder
-
-      - name: Copy changed .md files to folder
+    
+      - name: Copy changed files
         run: |
-          IFS=$'\n'
-          for file in ${{ steps.changed_files.outputs.files }}; do
-            if [[ "$file" == *".md" ]]; then
-              cp --parents "$file" md_folder/
-            fi
-          done
+          while IFS= read -r file; do
+            cp "$file" md_folder/
+          done < changed_files.txt
 
       - name: Convert to PDF
         uses: ./.github/actions/md-to-pdf
