@@ -15,8 +15,8 @@ jobs:
 
       - name: Create folder for changed files
         run: |
-          mkdir input_folder
-          mkdir output_folder
+          mkdir md_folder
+          mkdir pdf_folder
 
       - name: Copy changed .md files to folder
         run: |
@@ -30,12 +30,12 @@ jobs:
       - name: Convert to PDF
         uses: ./.github/actions/md-to-pdf
         with:
-          input_folder: 'input_folder'
-          output_folder: 'output_folder'
+          md_folder: 'md_folder'
+          pdf_folder: 'pdf_folder'
 
 
       - name: Archive PDF
         uses: actions/upload-artifact@v3
         with:
           name: output-pdf
-          path: output_folder
+          path: pdf_folder

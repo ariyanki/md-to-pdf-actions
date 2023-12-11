@@ -3,11 +3,11 @@ name: 'Markdown to PDF'
 description: 'Converts Markdown to PDF using Pandoc'
 
 inputs:
-  input-folder:
+  md-folder:
     description: 'Folder containing Markdown files'
     required: true
 
-  output-folder:
+  pdf-folder:
     description: 'Folder to store the generated PDF files'
     required: true
 
