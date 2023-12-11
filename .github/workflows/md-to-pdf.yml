@@ -21,7 +21,7 @@ jobs:
       - name: Identify changed MD files
         id: changed-md-files
         run: |
-          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$')
+          CHANGED_FILES=$(find . -name "*.md")
           echo "::set-output name=changed_md_files::$CHANGED_FILES"
 
       - name: Convert MD to PDF
@@ -34,7 +34,7 @@ jobs:
         run: |
           ls *.pdf
 
-          
+
 #   convert:
 #     runs-on: ubuntu-latest
 
