@@ -1,25 +1,23 @@
-name: Convert MD to PDF
+name: Convert Markdown to PDF
 
 on:
   push:
     branches:
-      - 'main'
+      - main
 
 jobs:
-  convert:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Convert to PDF
-        uses: ./.github/actions/md-to-pdf
-        with:
-          md_file: 'input.md'
+    - name: Install Pandoc and LaTeX
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y pandoc texlive-xetex
 
-      - name: Archive PDF
-        uses: actions/upload-artifact@v2
-        with:
-          name: output-pdf
-          path: /github/workspace/output.pdf
+    - name: Convert Markdown to PDF
+      run: |
+        pandoc input.md -o output.pdf
