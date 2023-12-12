@@ -18,54 +18,25 @@ jobs:
       - name: List Committed Markdown Files
         run: |
           git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$' > changed_md_files.txt
+          cat changed_md_files.txt
+
+      - name: Create folder for PDF files
+        run: mkdir pdf_folder
+
+      - name: Install Pandoc & texlive-xetex
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc texlive-xetex
 
       - name: Convert MD to PDF
-        uses: ./.github/actions/md-to-pdf
-        with:
-          list-md-files: changed_md_files.txt
-          pdf-folder-name: pdf_folder
-
-      # - name: Install Pandoc & texlive-xetex
-      #   run: |
-      #     sudo apt-get update
-      #     sudo apt-get install -y pandoc texlive-xetex
-
-      # - name: Convert MD to PDF
-      #   run: |
-      #     while IFS= read -r md_file; do
-      #       echo "converting $md_file"
-      #       pandoc "$md_file" -s -o "pdf_folder/${md_file%.md}.pdf"
-      #     done < changed_md_files.txt
+        run: |
+          while IFS= read -r md_file; do
+            echo "converting $md_file"
+            pandoc "$md_file" -s -o "pdf_folder/${md_file%.md}.pdf"
+          done < changed_md_files.txt
       
-      - name: Archive PDF
+      - name: Upload PDF
         uses: actions/upload-artifact@v3
         with:
           name: output-pdf
           path: pdf_folder
-
-
-#   convert:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - name: Checkout Repository
-#         uses: actions/checkout@v4
-
-#       - name: List changed files
-#         id: list_changes
-#         run: |
-#           echo "Changed files:"
-#           $(find . -name "*.md") > changed_files.txt
-#           cat changed_files.txt
-    
-#       - name: Copy changed files
-#         run: |
-#           while IFS= read -r file; do
-#             cp "$file" md_folder/
-#           done < changed_files.txt
-
-#       - name: Convert to PDF
-#         uses: ./.github/actions/md-to-pdf
-#         with:
-#           md_folder: 'md_folder'
-#           pdf_folder: 'pdf_folder'
