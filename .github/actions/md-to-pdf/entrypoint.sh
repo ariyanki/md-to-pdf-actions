@@ -1,6 +1,8 @@
 #!/bin/bash
 
-INPUT_FOLDER=$INPUT_MD_FOLDER
-OUTPUT_FOLDER=$INPUT_PDF_FOLDER
+mkdir $INPUT_PDF_FOLDER_NAME
 
-find "$INPUT_FOLDER" -name '*.md' -exec pandoc -s {} -o "$OUTPUT_FOLDER/{}.pdf" \;
+while IFS= read -r md_file; do
+    echo "converting $md_file"
+    pandoc "$md_file" -s -o "$INPUT_PDF_FOLDER_NAME/${md_file%.md}.pdf"
+done < $INPUT_LIST_MD_FILES
