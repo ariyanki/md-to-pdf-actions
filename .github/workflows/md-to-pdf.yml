@@ -32,7 +32,7 @@ jobs:
         run: |
           while IFS= read -r md_file; do
             echo "converting $md_file"
-            pdf_file=$(basename "$md_file")
+            pdf_file=$(echo "$md_file" | sed 's/\//_/g')
             pandoc "$md_file" -s -o "pdf_folder/${pdf_file%.md}.pdf"
           done < changed_md_files.txt
       
