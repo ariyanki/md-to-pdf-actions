@@ -1,0 +1,38 @@
+name: 'Markdown to PDF'
+
+description: 'Converts Markdown to PDF using Pandoc'
+
+inputs:
+  md-folder:
+    description: 'Folder containing Markdown files'
+    required: true
+
+  pdf-folder-name:
+    description: 'Folder to store the generated PDF files'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Create folder for PDF files
+      run: mkdir "$pdf-folder-name"
+
+    # - name: Install Pandoc & texlive-xetex
+    #   run: |
+    #     sudo apt-get update
+    #     sudo apt-get install -y pandoc texlive-xetex
+
+    # - name: Convert MD to PDF
+    #   run: |
+    #     while IFS= read -r md_file; do
+    #       echo "converting $md_file"
+    #       pdf_file=$(echo "$md_file" | sed 's/\//_/g')
+    #       pandoc "$md_file" -s -o "pdf_folder/${pdf_file%.md}.pdf"
+    #     done < changed_md_files.txt
+    
+    # - name: Upload PDF
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: output-pdf
+    #     path: pdf_folder
