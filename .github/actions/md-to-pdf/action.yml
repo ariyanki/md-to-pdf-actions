@@ -13,10 +13,10 @@ inputs:
 
 runs:
   using: "composite"
-  shell: bash
   steps:
 
     - name: Create folder for PDF files
+      shell: bash
       run: mkdir "$pdf-folder-name"
 
     # - name: Install Pandoc & texlive-xetex
