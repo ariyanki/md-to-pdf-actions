@@ -17,13 +17,13 @@ jobs:
 
       - name: List Committed Markdown Files
         run: |
-          md-files-paths=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$')
-          echo "md-files-paths=${md-files-paths}" >> $GITHUB_OUTPUT
+          git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$' > md-file-paths.txt
+          cat md-file-paths.txt
       
       - name: Convert md to pdf
         uses: ./.github/actions/md-to-pdf
         with:
-          md-file-paths: ${{ env.md-files-paths }}
+          md-file-paths: md-file-paths.txt
           pdf-result-folder: pdf_folder
       
       # - name: Upload PDF
