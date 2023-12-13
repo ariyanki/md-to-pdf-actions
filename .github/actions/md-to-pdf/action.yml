@@ -29,7 +29,7 @@ runs:
       shell: bash
       run: |
         while IFS= read -r md_file; do
-          echo "converting $md_file to ${{ inputs.pdf-result-folder }}/${pdf_file%.md}.pdf"
           pdf_file=$(echo "$md_file" | sed 's/\//_/g')
+          echo "converting $md_file to ${{ inputs.pdf-result-folder }}/${pdf_file%.md}.pdf"
           pandoc "$md_file" -s -o "${{ inputs.pdf-result-folder }}/${pdf_file%.md}.pdf"
         done < ${{ inputs.md-file-paths }}
