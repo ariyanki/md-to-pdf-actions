@@ -17,7 +17,7 @@ jobs:
 
       - name: List Committed Markdown Files
         run: |
-          git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$' > md-file-paths.txt
+          find . -name '*.md' > md-file-paths.txt
           cat md-file-paths.txt
       
       - name: Convert md to pdf

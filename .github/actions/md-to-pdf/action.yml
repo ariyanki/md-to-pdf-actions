@@ -7,7 +7,7 @@ inputs:
     description: 'Folder containing Markdown files'
     required: true
 
-  md-files-path:
+  md-file-paths:
     description: 'Folder containing Markdown files'
     required: true
 
@@ -25,7 +25,7 @@ runs:
 
     - name: Echo test
       shell: bash
-      run: echo "${{ inputs.md-files-path }}"
+      run: echo "${{ inputs.md-file-paths }}"
 
     # - name: Install Pandoc & texlive-xetex
     #   run: |
