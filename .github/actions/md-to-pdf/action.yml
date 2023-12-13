@@ -17,7 +17,7 @@ runs:
 
     - name: Create folder for PDF files
       shell: bash
-      run: mkdir ./"${{ inputs.pdf-result-folder }}"
+      run: mkdir "./${{ inputs.pdf-result-folder }}"
 
     - name: Install Pandoc & texlive-xetex
       shell: bash
