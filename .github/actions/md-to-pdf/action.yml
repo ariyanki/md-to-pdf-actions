@@ -24,11 +24,13 @@ runs:
       run: mkdir "${{ inputs.pdf-result-folder }}"
 
     - name: Install Pandoc & texlive-xetex
+      shell: bash
       run: |
         sudo apt-get update
         sudo apt-get install -y pandoc texlive-xetex
 
     - name: Convert MD to PDF
+      shell: bash
       run: |
         while IFS= read -r md_file; do
           echo "converting $md_file"
