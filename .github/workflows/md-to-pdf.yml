@@ -14,13 +14,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: List Committed Markdown Files
-        run: |
-          git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$' > md_file_list.txt
-          cat md_file_list.txt
       
-      - name: Checkout code
+      - name: Convert md to pdf
         uses: ./.github/actions/md-to-pdf
         with:
           pdf-folder-name: pdf_folder
