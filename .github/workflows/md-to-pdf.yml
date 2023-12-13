@@ -19,8 +19,6 @@ jobs:
         run: |
           md-files-paths=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$')
           echo "md-files-paths=${md-files-paths}" >> $GITHUB_OUTPUT
-          git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$' > md_file_list.txt
-          cat md_file_list.txt
       
       - name: Convert md to pdf
         uses: ./.github/actions/md-to-pdf

@@ -1,9 +1,6 @@
 
 # Vertice simplex Ossaque ab cursus praetemptatque superari
 
-
-
-
 ## Aries mundus limes futura dixerat genus Hyperborea
 
 Lorem markdownum duobus visus, excipit contraria conata. Qua hunc est *populare
@@ -35,7 +32,7 @@ existit inventa maxima in. Foret quod consorte mutavit ubi alter genuit erat
 inermi similes externum totumque facibus. Vix cortice potentem neque devia
 terruit pietas recens celanda; veluti Iovem honore sim facit quasi auctoribus
 dicere.
-
+``
 1. Levis male praecessit nescit sub evulsum
 2. Aeacon cura ibi non
 3. Habes nec tela tabellis captus quondamque certet
