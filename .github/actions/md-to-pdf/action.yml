@@ -7,7 +7,11 @@ inputs:
     description: 'Folder containing Markdown files'
     required: true
 
-  pdf-folder-name:
+  md-files-path:
+    description: 'Folder containing Markdown files'
+    required: true
+
+  pdf-result-folder:
     description: 'Folder to store the generated PDF files'
     required: true
 
@@ -17,7 +21,11 @@ runs:
 
     - name: Create folder for PDF files
       shell: bash
-      run: mkdir "${{ inputs.pdf-folder-name }}"
+      run: mkdir "${{ inputs.pdf-result-folder }}"
+
+    - name: Echo test
+      shell: bash
+      run: echo "${{ inputs.md-files-path }}"
 
     # - name: Install Pandoc & texlive-xetex
     #   run: |
