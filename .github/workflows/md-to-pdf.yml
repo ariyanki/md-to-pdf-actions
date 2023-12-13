@@ -26,8 +26,8 @@ jobs:
           md-file-paths: md-file-paths.txt
           pdf-result-folder: pdf_folder
       
-      # - name: Upload PDF
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: output-pdf
-      #     path: pdf_folder
+      - name: Upload PDF
+        uses: actions/upload-artifact@v3
+        with:
+          name: output-pdf
+          path: pdf_folder
