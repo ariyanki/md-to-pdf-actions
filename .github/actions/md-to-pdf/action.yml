@@ -23,22 +23,18 @@ runs:
       shell: bash
       run: mkdir "${{ inputs.pdf-result-folder }}"
 
-    - name: Echo test
-      shell: bash
-      run: echo "${{ inputs.md-file-paths }}"
+    - name: Install Pandoc & texlive-xetex
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y pandoc texlive-xetex
 
-    # - name: Install Pandoc & texlive-xetex
-    #   run: |
-    #     sudo apt-get update
-    #     sudo apt-get install -y pandoc texlive-xetex
-
-    # - name: Convert MD to PDF
-    #   run: |
-    #     while IFS= read -r md_file; do
-    #       echo "converting $md_file"
-    #       pdf_file=$(echo "$md_file" | sed 's/\//_/g')
-    #       pandoc "$md_file" -s -o "pdf_folder/${pdf_file%.md}.pdf"
-    #     done < changed_md_files.txt
+    - name: Convert MD to PDF
+      run: |
+        while IFS= read -r md_file; do
+          echo "converting $md_file"
+          pdf_file=$(echo "$md_file" | sed 's/\//_/g')
+          pandoc "$md_file" -s -o "${{ inputs.pdf-result-folder }}/${pdf_file%.md}.pdf"
+        done < ${{ inputs.md-file-paths }}
     
     # - name: Upload PDF
     #   uses: actions/upload-artifact@v3
