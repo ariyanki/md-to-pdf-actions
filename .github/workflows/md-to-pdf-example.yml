@@ -1,4 +1,4 @@
-name: Convert MD to PDF
+name: Convert MD to PDF Example
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: List Committed Markdown Files
+      - name: List Markdown Files
         run: |
           find . -name '*.md' > md-file-paths.txt
           cat md-file-paths.txt
